@@ -1,6 +1,7 @@
 <template>
   <div class="tasklist">
     <div class="container">
+
       <b-row>
         <b-col cols="1">
           <router-link to="/">
@@ -10,63 +11,67 @@
       </b-row>
 
       <b-container>
-        <b-row>
-          <b-col cols="9">
-             <b-form >
+        <b-form @submit.prevent="addTodo(todo)">
+          <b-row>
+            <b-col cols="10">
               <b-form-group id="input-group-1" label-for="input-1">
-            <b-form-input
-              class="task-input"
-              type="text"
-              placeholder="Add New Task"
-            ></b-form-input>
-               </b-form-group>
-               </b-form>
-          </b-col>
+                <b-form-input
+                  v-model="todo.description"
+                  class="task-input"
+                  type="text"
+                  placeholder="Add New Task"
+                ></b-form-input>
+              </b-form-group>
+            </b-col>
 
-          <b-col cols="2">
-            <button class="ad" type="submit" value="">
-              <img class="submit-task" src="../img/botao.png" alt="" />
-            </button>
-          </b-col>
-        </b-row>
+            <b-col cols="2">
+              <button class="ad" type="submit" value="">
+                <img v-if="todo.description" class="submit-task" src="../img/botao.png" alt="" />
+                 <img v-else class="submit-task" src="../img/botao-2.png"  alt="" />
+              </button>
+              
+            </b-col>
+          </b-row>
+        </b-form>
       </b-container>
+    <h5  v-if="todos.length < 1" class="frase">Add a task to get started</h5>
+ 
+        <img class="main-img" src="../img/ilustracao.png" alt="ilustracao" />
+    
+  <div style="height:30px; ">
+      <todo class="todo-list"  v-for="t in todos" :key="t.id" @toggle="toggleTodo" :todo="t" />
+  </div>
+  </div>
 
-      <div class="back">
-        <b-row>
-          <b-col cols="1">
-            <input class="task-list" type="checkbox" />
-          </b-col>
-          <b-col cols="2">
-            <label class="task-label" for="flexRadioDefault1"> Task </label>
-          </b-col>
-<b-col cols="7"> </b-col>
-          <b-col cols="2" class="botao-deletar">
-            <span title="Delete Task">
-              <img class="delete-btn" src="../img/delete.png" alt="deletar" />
-            </span>
-          </b-col>
-        </b-row>
-      </div>
-
-      <img class="main-img" src="../img/ilustracao.png" alt="ilustracao" />
-      <h5 class="frase">Add a task to get started</h5>
-    </div>
   </div>
 </template>
 <script>
+import  Todo from '../components/Todo'
 
 export default {
-  name:"AdicionarTarefa",
-  data(){
-    return{
-      tarefas:[],
-     
-
-
-
-
+  name: "AdicionarTarefa",
+  components:{ Todo},
+  
+  data() {
+    return { todos: [], todo: { checked: false } };
+  },
+  methods: {
+    addTodo(todo) {
+     if(todo.description){
+        todo.id = Date.now();
+      this.todos.push(todo);
+      this.todo = { checked: false };
+     }
+    
+    },
+   toggleTodo (todo){
+      const index = this.todos.findIndex(item => item.id === todo.id)
+      if(index > -1){
+        const checked = !this.todos[index].checked
+        this.$set(this.todos, index, {...this.todos[index], checked});
+      }
     }
-  }
+  },
 };
 </script>
 
@@ -78,6 +83,13 @@ export default {
   margin: 0;
   border: 0;
   padding: none;
+  
+  
+}
+.todo-list{
+   z-index: 2;
+  bottom: 350px;
+  position:relative;
 }
 .tasklist {
   height: 100vh;
@@ -93,6 +105,7 @@ export default {
   max-width: 480px;
   width: 100%;
   max-height: 100%;
+
   background-color: rgb(255, 255, 255);
   padding: 25px;
   border-radius: 25px;
@@ -111,13 +124,13 @@ export default {
   color: #272727;
 }
 
-.back {
-  background-color: #db98cb6b;
-
-  align-items: center;
-  padding: 8px;
-  border-radius: 35px;
-  margin-bottom: 12px;
+.imagem {
+  padding: 0 20px 0 20px;
+  z-index: 1;
+  position: fixed;
+}
+.main-img {
+  height: 340px;
 }
 
 .task-input {
@@ -134,61 +147,21 @@ export default {
 .task-input::placeholder {
   color: #272727;
 }
-.task-list {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  border: 2px solid rgb(211, 130, 180);
-  transition: 0.2s;
 
-  flex-shrink: 0;
-  appearance: none;
-  cursor: pointer;
-}
-.task-list:hover {
-  border-color: rgb(209, 80, 192);
-  box-shadow: 0 0 0 2px rgba(238, 156, 167, 0.2);
-}
-.task-list:checked {
-  background-size: 10px;
-  border: 2px solid rgb(211, 130, 180);
-  background-color: rgb(211, 130, 180);
-}
-.task-list:checked + label {
-  color: #272727;
-  text-decoration: line-through;
-}
-.task-label {
-  color: #272727;
 
-  font-size: 14px;
-
-  transition: 0.2s;
-  cursor: pointer;
-}
-
-.delete-btn {
-  width: 18px;
-  height: 18px;
-  cursor: pointer;
-}
-input {
-  outline: none;
-}
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-.main-img {
-  height: 340px;
-}
 
 .frase {
   color: #a4a4a788;
   height: 30px;
   text-align: center;
+  padding-top: 30px;
 }
+
+
+
+
+
+
 .ad {
   background-color: #e6646400;
 }
