@@ -1,11 +1,18 @@
 <template>
-  <div>
+  <div >
     <div class="back">
       <b-row>
-        <b-col cols="1"></b-col>
-        <b-col cols="8" class="descricao">
-          <button @click="$emit('toggle', todo)" class="task-list"></button>
-          <label class="task-label">{{ todo.description }} </label>
+        <b-col  class="descricao" cols="1"></b-col>
+        <b-col  cols="7" class="descricao">
+
+          <button  :class="{checked: todo.checked}" @click="$emit('toggle', todo)" class="task-list">
+              <span v-if="todo.checked"> {{ todo.description }} </span>
+           <span v-else>{{ todo.description }}</span>
+          </button>
+          <label class="task-label"> 
+           
+          </label>
+    
         </b-col>
 
         <b-col cols="3" class="botao-deletar">
@@ -37,6 +44,12 @@ export default {
   margin: 10px;
   border-radius: 35px;
 }
+.checked {
+  color: rgb(151, 151, 151)!important;
+ background-color: #c700986b!important;
+  text-decoration: line-through;
+
+}
 .descricao {
   text-align: start;
   padding: 10px;
@@ -53,15 +66,17 @@ export default {
   cursor: pointer;
 }
 .task-list:hover {
-  border-color: rgb(148, 0, 128);
+  border-color: rgb(207, 87, 161);
+  background-color: rgb(207, 87, 161);
   box-shadow: 0 0 0 2px rgba(238, 156, 167, 0.2);
 }
-.task-list:checked {
-  background-size: 10px;
-  border: 2px solid rgb(211, 130, 180);
-  background-color: rgb(182, 40, 127);
-}
 
+span{
+ 
+  padding-left: 20px;
+
+  
+}
 .task-label {
   color: #272727;
   font-size: 14px;

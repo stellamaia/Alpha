@@ -38,7 +38,7 @@
  
         <img class="main-img" src="../img/ilustracao.png" alt="ilustracao" />
     
-  <div style="height:30px; ">
+  <div style="height:30px;" >
       <todo class="todo-list"  v-for="t in todos" :key="t.id" @toggle="toggleTodo" :todo="t" />
   </div>
   </div>
@@ -83,11 +83,9 @@ export default {
   margin: 0;
   border: 0;
   padding: none;
-  
-  
 }
 .todo-list{
-   z-index: 2;
+  z-index: 2;
   bottom: 350px;
   position:relative;
 }
@@ -105,7 +103,6 @@ export default {
   max-width: 480px;
   width: 100%;
   max-height: 100%;
-
   background-color: rgb(255, 255, 255);
   padding: 25px;
   border-radius: 25px;
