@@ -39,7 +39,7 @@
 
 <script>
 // @ is an alias to /src
-import Pages from '@/components/Pages.vue'
+
 
 export default {
   name: 'PaginaPrincipal',
@@ -52,7 +52,7 @@ export default {
     };
   },
   components: {
-    Pages
+  
   }
   
 }
