@@ -1,21 +1,21 @@
 <template>
-  <div >
+  <div>
     <div class="back">
       <b-row>
-        <b-col  class="descricao" cols="1"></b-col>
-        <b-col  cols="7" class="descricao">
-
-          <button  :class="{checked: todo.checked}" @click="$emit('toggle', todo)" class="task-list">
-              <span v-if="todo.checked"> {{ todo.description }} </span>
-           <span v-else>{{ todo.description }}</span>
+        <b-col class="descricao" cols="1"></b-col>
+        <b-col cols="9" class="descricao">
+          <button
+            class="task-list"
+            @click="$emit('toggle', todo)"
+            :class="{ checkedButton: todo.checked }"
+          >
           </button>
-          <label class="task-label"> 
-           
-          </label>
-    
+          <label :class="{ checked: todo.checked }" class="task-label">
+            {{ todo.description }}</label
+          >
         </b-col>
 
-        <b-col cols="3" class="botao-deletar">
+        <b-col cols="2" class="botao-deletar">
           <button class="button" title="Delete Task">
             <img class="delete-btn" src="../img/delete.png" alt="deletar" />
           </button>
@@ -45,10 +45,12 @@ export default {
   border-radius: 35px;
 }
 .checked {
-  color: rgb(151, 151, 151)!important;
- background-color: #c700986b!important;
-  text-decoration: line-through;
+  color: rgb(151, 151, 151) !important;
 
+  text-decoration: line-through;
+}
+.checkedButton {
+background-color: rgb(207, 87, 161)!important;
 }
 .descricao {
   text-align: start;
@@ -59,7 +61,7 @@ export default {
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  border: 2px solid rgb(211, 130, 180);
+  border: 2px solid rgb(207, 87, 161);
   transition: 0.2s;
   background-color: rgb(255, 255, 255);
   appearance: none;
@@ -71,11 +73,8 @@ export default {
   box-shadow: 0 0 0 2px rgba(238, 156, 167, 0.2);
 }
 
-span{
- 
+span {
   padding-left: 20px;
-
-  
 }
 .task-label {
   color: #272727;
