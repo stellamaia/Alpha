@@ -16,7 +16,7 @@
         </b-col>
 
         <b-col cols="2" class="botao-deletar">
-          <button class="button" title="Delete Task">
+          <button @click="$emit('remove', todo)" class="button" title="Delete Task">
             <img class="delete-btn" src="../img/delete.png" alt="deletar" />
           </button>
         </b-col>
